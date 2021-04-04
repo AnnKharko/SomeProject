@@ -1,4 +1,7 @@
 const { userService } = require('../service');
+const { constant } = require('../constant');
+const { passwordHasher } = require('../helper');
+const { statusCodesEnum } = require('../error');
 
 module.exports = {
     getUsers: async (req, res, next) => {
@@ -23,9 +26,12 @@ module.exports = {
     },
     createUser: async (req, res, next) => {
         try {
-            await userService.createOne(req.body);
+            const { password } = req.body;
 
-            res.json('USER IS CREATED');
+            const hashPassword = await passwordHasher.hash(password);
+            await userService.createOne({ ...req.body, password: hashPassword });
+
+            res.status(statusCodesEnum.CREATED).json(constant.USER_IS_CREATED);
         } catch (e) {
             next(e);
         }
@@ -34,10 +40,9 @@ module.exports = {
         try {
             const { id } = req.params;
 
-            await userService.deleteOne(
+            await userService.deleteOne(id);
 
-            );
-            res.json('USER IS DELETED');
+            res.status(statusCodesEnum.OK).json(constant.USER_IS_DELETED);
         } catch (e) {
             next(e);
         }
