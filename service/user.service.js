@@ -1,4 +1,4 @@
-const { User } = require('../dataBase/models');
+const { O_Auth, User } = require('../dataBase/models');
 
 module.exports = {
     findUsers: () => {
@@ -12,5 +12,8 @@ module.exports = {
         return user;
     },
     createOne: (userObject) => User.create(userObject),
-    deleteOne: (id) => User.findByIdAndDelete({ _id: id })
+    deleteOne: async (id, authId) => {
+        await User.findByIdAndDelete({ _id: id });
+        await O_Auth.findByIdAndDelete({ _id: authId });
+    }
 };

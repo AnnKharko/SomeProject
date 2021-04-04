@@ -39,8 +39,9 @@ module.exports = {
     deleteUser: async (req, res, next) => {
         try {
             const { id } = req.params;
+            const authId = req.infoTokens;
 
-            await userService.deleteOne(id);
+            await userService.deleteOne(id, authId);
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_DELETED);
         } catch (e) {

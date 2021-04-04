@@ -1,13 +1,9 @@
 const router = require('express').Router();
 
 const { authController } = require('../controller');
-// const { middleware } = require('../middlewares');
+const { authMiddleware } = require('../middleware');
 
 router.post('/', authController.authUser);
-// router.post('/', controller.createUser);
-//
-// router.use('/:id', middleware.checkIsPresent);
-// router.get('/:id', controller.getUser);
-// router.delete('/:id', controller.delete);
+router.post('/refresh', authMiddleware.checkRefreshToken, authController.refreshToken);
 
 module.exports = router;
