@@ -31,9 +31,9 @@ module.exports = {
     REFRESH_TOKEN_IS_REQUIRED: {
         customCode: 4005
     },
-    // WRONG_MAIL_ACTION: {
-    //     customCode: 4006
-    // },
+    WRONG_MAIL_ACTION: {
+        customCode: 4006
+    },
     // NOT_VALID_FILE: {
     //     customCode: 4007
     // },

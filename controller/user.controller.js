@@ -1,5 +1,5 @@
-const { userService } = require('../service');
-const { constant } = require('../constant');
+const { mailService, userService } = require('../service');
+const { constant, emailActionsEnum } = require('../constant');
 const { normalizer, passwordHasher } = require('../helper');
 const { statusCodesEnum } = require('../error');
 
@@ -27,10 +27,11 @@ module.exports = {
     },
     createUser: async (req, res, next) => {
         try {
-            const { password } = req.body;
+            const { password, email, name } = req.body;
 
             const hashPassword = await passwordHasher.hash(password);
             await userService.createOne({ ...req.body, password: hashPassword });
+            await mailService.sendMail(email, emailActionsEnum.WELCOME, { userName: name });
 
             res.status(statusCodesEnum.CREATED).json(constant.USER_IS_CREATED);
         } catch (e) {
