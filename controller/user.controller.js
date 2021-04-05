@@ -1,12 +1,13 @@
 const { userService } = require('../service');
 const { constant } = require('../constant');
-const { passwordHasher } = require('../helper');
+const { normalizer, passwordHasher } = require('../helper');
 const { statusCodesEnum } = require('../error');
 
 module.exports = {
     getUsers: async (req, res, next) => {
         try {
-            const users = await userService.findUsers();
+            const findUsers = await userService.findUsers();
+            const users = await normalizer(findUsers);
 
             res.json(users);
         } catch (e) {
@@ -17,8 +18,8 @@ module.exports = {
         try {
             const { id } = req.params;
 
-            const user = await userService.findOne(id);
-
+            const findUser = await userService.findOne(id);
+            const user = await normalizer(findUser);
             res.json(user);
         } catch (e) {
             next(e);
