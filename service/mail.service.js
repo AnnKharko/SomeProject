@@ -32,7 +32,7 @@ const sendMail = async (userMail, action, context) => {
         const html = await templateParser.render(templateInfo.templateName, context);
 
         return transporter.sendMail({
-            from: NO_REPLY,
+            from: 'NO_REPLY',
             to: userMail,
             subject: templateInfo.subject,
             html
