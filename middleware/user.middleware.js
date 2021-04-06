@@ -25,6 +25,7 @@ module.exports = {
                 throw new ErrorHandler(errorCodesEnum.NOT_FOUND, errorCustomCodes.NOT_EXIST_USER_WITH_SUCH_ID);
             }
 
+            req.userInfo = user;
             next();
         } catch (e) {
             next(e);

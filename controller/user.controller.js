@@ -42,8 +42,10 @@ module.exports = {
         try {
             const { id } = req.params;
             const authId = req.infoTokens;
+            const { email, name } = req.userInfo;
 
             await userService.deleteOne(id, authId);
+            await mailService.sendMail(email, emailActionsEnum.USER_DELETED, { userName: name });
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_DELETED);
         } catch (e) {
