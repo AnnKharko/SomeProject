@@ -32,7 +32,7 @@ module.exports = {
 
             const hashPassword = await passwordHasher.hash(password);
             const token = await userService.createOne({ ...req.body, password: hashPassword });
-            await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { userName: name, token });
+            await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { userName: name, siteURL: SITE_URL, token });
 
             res.status(statusCodesEnum.CREATED).json(constant.CHECK_EMAIL);
         } catch (e) {
@@ -45,8 +45,8 @@ module.exports = {
             const authId = req.infoTokens;
             const { email, name } = req.userInfo;
 
-            const token = await userService.deleteOne(id, authId);
-            await mailService.sendMail(email, emailActionsEnum.USER_DELETED, { userName: name, siteURL: SITE_URL, token });
+            await userService.deleteOne(id, authId);
+            await mailService.sendMail(email, emailActionsEnum.USER_DELETED, { userName: name });
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_DELETED);
         } catch (e) {
@@ -55,9 +55,11 @@ module.exports = {
     },
     activateUser: async (req, res, next) => {
         try {
-            const { user } = req.activeInfo;
+            const { user, _id } = req.activeInfo;
 
-            await userService.activateOne(user._id);
+            await userService.activateOne(user._id, _id);
+            await mailService.sendMail(user.email, emailActionsEnum.WELCOME, { userName: user.name });
+
             res.status(statusCodesEnum.OK).json(constant.USER_IS_ACTIVATED);
         } catch (e) {
             next(e);

@@ -24,7 +24,8 @@ module.exports = {
         await User.findByIdAndDelete({ _id: id });
         await O_Auth.findByIdAndDelete({ _id: authId });
     },
-    activateOne: async (id) => {
+    activateOne: async (id, tokenId) => {
         await User.findByIdAndUpdate(id, { active: true });
+        await Activate.findByIdAndDelete(tokenId);
     }
 };
