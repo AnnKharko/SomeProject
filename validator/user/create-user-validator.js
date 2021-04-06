@@ -16,5 +16,5 @@ module.exports = Joi.object({
     password: Joi.string()
         .regex(regexpEnum.PASSWORD_REGEXP)
         .required(),
-    repeat_password: Joi.ref('password')
+    repeat_password: Joi.ref('password'),
 });

@@ -2,7 +2,8 @@ module.exports = (object) => {
     const hiddenFields = [
         'password',
         'access_token',
-        'refresh_token'
+        'refresh_token',
+        'activate_token'
     ];
     const objects = JSON.parse(JSON.stringify(object));
 

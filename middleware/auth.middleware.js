@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const { constant } = require('../constant');
-const { JWT_SECRET, JWT_REFRESH_SECRET } = require('../config/config');
-const { O_Auth } = require('../dataBase/models');
+const { JWT_ACTIVATE_SECRET, JWT_SECRET, JWT_REFRESH_SECRET } = require('../config/config');
+const { Activate, O_Auth } = require('../dataBase/models');
 
 module.exports = {
     checkAccessToken: async (req, res, next) => {
@@ -54,6 +54,32 @@ module.exports = {
             }
 
             req.tokenInfo = tokens;
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+    checkActivateToken: async (req, res, next) => {
+        try {
+            const { activate_token } = req.body;
+
+            if (!activate_token) {
+                throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.ACTIVATE_TOKEN_IS_REQUIRED);
+            }
+
+            jwt.verify(activate_token, JWT_ACTIVATE_SECRET, (err) => {
+                if (err) {
+                    throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.NOT_VALID_ACTIVATE_TOKEN);
+                }
+            });
+
+            const user = await Activate.findOne({ activate_token }).populate('user');
+
+            if (!user) {
+                throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.NOT_VALID_ACTIVATE_TOKEN);
+            }
+            req.activeInfo = user;
+
             next();
         } catch (e) {
             next(e);

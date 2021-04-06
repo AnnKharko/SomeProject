@@ -34,6 +34,12 @@ module.exports = {
     WRONG_MAIL_ACTION: {
         customCode: 4006
     },
+    NOT_VALID_ACTIVATE_TOKEN: {
+        customCode: 4007
+    },
+    ACTIVATE_TOKEN_IS_REQUIRED: {
+        customCode: 4008
+    },
     // NOT_VALID_FILE: {
     //     customCode: 4007
     // },

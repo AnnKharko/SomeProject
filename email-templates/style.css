@@ -7,5 +7,6 @@
     color: black;
 }
 a {
-    color: lightgrey;
+    text-decoration: none;
+    color: black;
 }

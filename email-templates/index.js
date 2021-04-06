@@ -8,5 +8,9 @@ module.exports = {
     [emailActionsEnum.USER_DELETED]: {
         templateName: 'user-deleted',
         subject: 'User was deleted'
+    },
+    [emailActionsEnum.ACTIVATE]: {
+        templateName: 'activate',
+        subject: 'Activate user'
     }
 };

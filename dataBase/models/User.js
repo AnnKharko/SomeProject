@@ -8,7 +8,7 @@ const userSchema = new Schema({
     password: { type: String, required: true }, // select: false
     active: { type: Boolean, default: false },
     avatar: { type: String },
-    doc: { type: String }
+    doc: { type: String },
 });
 
 module.exports = model('User', userSchema);
