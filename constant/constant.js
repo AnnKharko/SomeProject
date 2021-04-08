@@ -8,5 +8,27 @@ module.exports = {
     CAR_IS_DELETED: 'CAR IS DELETED',
     UNKNOWN_FILE: 'UNKNOWN FILE',
     NO_REPLY: 'no-reply@codemoto.io',
-    CHECK_EMAIL: 'Check your inbox to activate your account.'
+    CHECK_EMAIL: 'Check your inbox to activate your account.',
+
+    PHOTO_MAX_SIZE: 2 * 1024 * 1024, // 2MB
+    FILE_MAX_SIZE: 5 * 1024 * 1024, // 5MB
+    VIDEO_MAX_SIZE: 15 * 1024 * 1024, // 15MB
+    PHOTOS_MIMETYPES: [
+        'image/gif',
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png',
+        'image/tiff',
+        'image/webp'
+    ],
+    DOCS_MIMETYPES: [
+        'application/msword', // .doc/.dot
+        'application/pdf', // .pdf
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document' // .docx  2007
+    ],
+    VIDEOS_MIMETYPES: [
+        'video/mpeg',
+        'video/mp4',
+    ]
 };

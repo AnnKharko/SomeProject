@@ -40,19 +40,19 @@ module.exports = {
     ACTIVATE_TOKEN_IS_REQUIRED: {
         customCode: 4008
     },
-    // NOT_VALID_FILE: {
-    //     customCode: 4007
-    // },
+    NOT_VALID_FILE: {
+        customCode: 4007
+    },
     // PAYLOAD_TOO_LARGE
-    // FILE_TOO_LARGE: {
-    //     customCode: 4130,
-    //     message: 'File too large'
-    // },
+    FILE_TOO_LARGE: {
+        customCode: 4130,
+        message: 'File too large'
+    },
     //    NOT_ALLOWED
-    // ONLY_ONE_FILE_ALLOWED_UPLOAD: {
-    //     customCode: 4051,
-    //     message: 'Only one photo is  allowed to be upload'
-    // },
+    ONLY_ONE_FILE_ALLOWED_UPLOAD: {
+        customCode: 4051,
+        message: 'Only one photo is  allowed to be upload'
+    },
     // FORBIDDEN
     FORBIDDEN: {
         customCode: 4030,

@@ -28,10 +28,18 @@ module.exports = {
     },
     createUser: async (req, res, next) => {
         try {
-            const { password, email, name } = req.body;
+            const {
+                body: { password, email, name },
+                // avatar, docs, videos
+            } = req;
 
             const hashPassword = await passwordHasher.hash(password);
-            const token = await userService.createOne({ ...req.body, password: hashPassword });
+            const { user, token } = await userService.createOne({ ...req.body, password: hashPassword });
+            console.log('|||||||||||||||||||||||||');
+            console.log(user);
+            console.log('|||||||||||||||||||||||||');
+            console.log(token);
+
             await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { userName: name, siteURL: SITE_URL, token });
 
             res.status(statusCodesEnum.CREATED).json(constant.CHECK_EMAIL);

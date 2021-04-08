@@ -18,7 +18,7 @@ module.exports = {
         const user = await User.create(userObject);
         await Activate.create({ ...token, user: user._id });
 
-        return token;
+        return { user, token };
     },
     deleteOne: async (id, authId) => {
         await User.findByIdAndDelete({ _id: id });
