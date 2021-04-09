@@ -24,8 +24,6 @@ module.exports = {
                         throw new ErrorHandler(errorCodesEnum.PAYLOAD_TOO_LARGE, errorCustomCodes.FILE_TOO_LARGE);
                     }
                     docs.push(allFiles[i]);
-                } else {
-                    throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.THIS_MIMETYPE_NOT_ALLOWED);
                 }
 
                 if (PHOTOS_MIMETYPES.includes(mimetype)) {
@@ -33,8 +31,6 @@ module.exports = {
                         throw new ErrorHandler(errorCodesEnum.PAYLOAD_TOO_LARGE, errorCustomCodes.FILE_TOO_LARGE);
                     }
                     photos.push(allFiles[i]);
-                } else {
-                    throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.THIS_MIMETYPE_NOT_ALLOWED);
                 }
 
                 if (VIDEOS_MIMETYPES.includes(mimetype)) {
@@ -42,7 +38,9 @@ module.exports = {
                         throw new ErrorHandler(errorCodesEnum.PAYLOAD_TOO_LARGE, errorCustomCodes.FILE_TOO_LARGE);
                     }
                     videos.push(allFiles[i]);
-                } else {
+                }
+
+                if (!DOCS_MIMETYPES.includes(mimetype) && !PHOTOS_MIMETYPES.includes(mimetype)) {
                     throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.THIS_MIMETYPE_NOT_ALLOWED);
                 }
             }

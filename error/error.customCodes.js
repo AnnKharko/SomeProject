@@ -57,6 +57,14 @@ module.exports = {
         customCode: 4052,
         message: 'THIS MIMETYPE NOT ALLOWED'
     },
+    THIS_PHOTO_MIMETYPE_NOT_ALLOWED: {
+        customCode: 4052,
+        message: 'THIS PHOTO MIMETYPE NOT ALLOWED'
+    },
+    THIS_DOC_MIMETYPE_NOT_ALLOWED: {
+        customCode: 4052,
+        message: 'THIS DOC MIMETYPE NOT ALLOWED'
+    },
     // FORBIDDEN
     FORBIDDEN: {
         customCode: 4030,
