@@ -53,6 +53,10 @@ module.exports = {
         customCode: 4051,
         message: 'Only one photo is  allowed to be upload'
     },
+    THIS_MIMETYPE_NOT_ALLOWED: {
+        customCode: 4052,
+        message: 'THIS MIMETYPE NOT ALLOWED'
+    },
     // FORBIDDEN
     FORBIDDEN: {
         customCode: 4030,

@@ -2,5 +2,6 @@ module.exports = {
     activateTokenizer: require('./activateTokenizer'),
     normalizer: require('./normalizer'),
     passwordHasher: require('./password.helper'),
-    tokenizer: require('./tokenizer')
+    tokenizer: require('./tokenizer'),
+    uploadFileDirBuilder: require('./uploadFileDirBuilder')
 };

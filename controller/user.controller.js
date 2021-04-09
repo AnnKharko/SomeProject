@@ -1,4 +1,4 @@
-const { mailService, userService } = require('../service');
+const { mailService, userService, uploadService } = require('../service');
 const { constant, emailActionsEnum } = require('../constant');
 const { normalizer, passwordHasher } = require('../helper');
 const { statusCodesEnum } = require('../error');
@@ -30,15 +30,29 @@ module.exports = {
         try {
             const {
                 body: { password, email, name },
-                // avatar, docs, videos
+                avatar, docs, videos
             } = req;
 
             const hashPassword = await passwordHasher.hash(password);
             const { user, token } = await userService.createOne({ ...req.body, password: hashPassword });
-            console.log('|||||||||||||||||||||||||');
-            console.log(user);
-            console.log('|||||||||||||||||||||||||');
-            console.log(token);
+
+            if (avatar) {
+                await uploadService.userUploadDirBuilder(avatar, user._id, 'photo');
+            }
+
+            if (docs) {
+                for (const doc of docs) {
+                    // eslint-disable-next-line no-await-in-loop
+                    await uploadService.userUploadDirBuilder(doc, user._id, 'doc');
+                }
+            }
+
+            if (videos) {
+                for (const video of videos) {
+                    // eslint-disable-next-line no-await-in-loop
+                    await uploadService.userUploadDirBuilder(video, user._id, 'video');
+                }
+            }
 
             await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { userName: name, siteURL: SITE_URL, token });
 

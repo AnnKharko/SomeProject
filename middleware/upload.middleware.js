@@ -12,7 +12,7 @@ module.exports = {
     checkFile: (req, res, next) => {
         try {
             const { files } = req;
-            const allFiles = Object.value(files);// ????
+            const allFiles = Object.values(files);
             const docs = [];
             const photos = [];
             const videos = [];
@@ -24,6 +24,8 @@ module.exports = {
                         throw new ErrorHandler(errorCodesEnum.PAYLOAD_TOO_LARGE, errorCustomCodes.FILE_TOO_LARGE);
                     }
                     docs.push(allFiles[i]);
+                } else {
+                    throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.THIS_MIMETYPE_NOT_ALLOWED);
                 }
 
                 if (PHOTOS_MIMETYPES.includes(mimetype)) {
@@ -31,6 +33,8 @@ module.exports = {
                         throw new ErrorHandler(errorCodesEnum.PAYLOAD_TOO_LARGE, errorCustomCodes.FILE_TOO_LARGE);
                     }
                     photos.push(allFiles[i]);
+                } else {
+                    throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.THIS_MIMETYPE_NOT_ALLOWED);
                 }
 
                 if (VIDEOS_MIMETYPES.includes(mimetype)) {
@@ -38,6 +42,8 @@ module.exports = {
                         throw new ErrorHandler(errorCodesEnum.PAYLOAD_TOO_LARGE, errorCustomCodes.FILE_TOO_LARGE);
                     }
                     videos.push(allFiles[i]);
+                } else {
+                    throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.THIS_MIMETYPE_NOT_ALLOWED);
                 }
             }
 
