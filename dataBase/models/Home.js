@@ -8,7 +8,7 @@ const areaSchema = new Schema({
 
 const homeSchema = new Schema({
     // home: { type: String, required: true },
-    house: { type: Boolean },
+    house: { type: Boolean, default: false },
     apartment: { type: Boolean },
     price: { type: Number, required: true },
     pricePerM2: { type: Number, required: true },
@@ -18,11 +18,11 @@ const homeSchema = new Schema({
     // square: { type: String },
     buildingType: { type: String, required: true },
     WallMaterial: { type: String, required: true },
-    numberOfFloors: { type: Number, required: true },
+    numberOfFloors: { type: Number },
     floor: { type: Number, required: true },
     numberOfRooms: { type: Number, required: true },
     houseArea: areaSchema,
-    landArea: { type: Number, required: true },
+    landArea: { type: Number },
     photos: [{ type: String }],
     docs: [{ type: String }],
     videos: [{ type: String }]

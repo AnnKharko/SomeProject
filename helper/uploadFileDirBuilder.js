@@ -1,8 +1,8 @@
 const path = require('path');
 const uuid = require('uuid').v1;
 
-module.exports = (uploadFileName, fileType, itemId) => {
-    const pathWithoutStatic = path.join('user', `${itemId}`, fileType);
+module.exports = (object, uploadFileName, fileType, itemId) => {
+    const pathWithoutStatic = path.join(object, `${itemId}`, fileType);
     const fileDir = path.join(process.cwd(), 'static', pathWithoutStatic);
     const fileExtension = uploadFileName.split('.').pop();
     const fileName = `${uuid()}.${fileExtension}`;
