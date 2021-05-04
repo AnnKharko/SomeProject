@@ -1,10 +1,10 @@
 const router = require('express').Router();
 
 const { homeController } = require('../controller');
-// const { middleware } = require('../middlewares');
+const { uploadMiddleware } = require('../middleware');
 
 router.get('/', homeController.getAllHomes);
-router.post('/', homeController.createHome);
+router.post('/', uploadMiddleware.checkFile, homeController.createHome);
 
 // router.use('/:id', middleware.checkIsPresent);
 router.get('/:id', homeController.getHome);

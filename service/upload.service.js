@@ -26,7 +26,8 @@ const userUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
 };
 const homeUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
     const { filePath, fileDir, uploadPath } = uploadFileDirBuilder('home', uploadFile.name, uploadType, itemId);
-
+    // console.log(fileDir);
+    // console.log(filePath);
     await fs.mkdir(fileDir, { recursive: true });
 
     await uploadFile.mv(filePath);
