@@ -4,12 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "lint": "eslint --fix --ext .js src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "AnnKharko",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "email-templates": "^8.0.4",
     "express": "^4.17.1",
@@ -17,13 +19,18 @@
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.3",
+    "morgan": "^1.10.0",
+    "helmet": "^4.6.0",
     "nodemailer": "^6.5.0",
     "pug": "^3.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.10",
     "@types/email-templates": "^8.0.3",
     "@types/express-fileupload": "^1.1.6",
+    "@types/helmet": "^4.0.0",
+    "@types/morgan": "^1.9.2",
     "@types/nodemailer": "^6.4.1",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",

@@ -25,7 +25,8 @@ const homeSchema = new Schema({
     landArea: { type: Number },
     photos: [{ type: String }],
     docs: [{ type: String }],
-    videos: [{ type: String }]
+    videos: [{ type: String }],
+    createdAt: { type: Date, default: Date.now() }
 });
 
 module.exports = model('Home', homeSchema);

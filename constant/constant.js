@@ -32,5 +32,15 @@ module.exports = {
     VIDEOS_MIMETYPES: [
         'video/mpeg',
         'video/mp4',
-    ]
+    ],
+
+    STATUS_ENUM: {
+        PENDING: 'pending',
+        CONFIRMED: 'confirmed',
+        BLOCKED: 'blocked'
+    },
+    ROLE_ENUM: {
+        ADMIN: 'admin',
+        USER: 'user'
+    }
 };

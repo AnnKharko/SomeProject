@@ -1,7 +1,7 @@
 module.exports = {
     Activate: require('./Activate'),
     Home: require('./Home'),
-    Rieltor: require('./Rieltor'),
+    Realtor: require('./Realtor'),
     O_Auth: require('./O_Auth'),
     User: require('./User')
 };

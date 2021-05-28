@@ -1,10 +1,10 @@
 const fs = require('fs/promises');
 const { constant } = require('../constant');
 const { uploadFileDirBuilder } = require('../helper');
-const { Home, User } = require('../dataBase/models');
+const { Home, Realtor } = require('../dataBase/models');
 
-const userUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
-    const { filePath, fileDir, uploadPath } = uploadFileDirBuilder('user', uploadFile.name, uploadType, itemId);
+const realtorUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
+    const { filePath, fileDir, uploadPath } = uploadFileDirBuilder('realtor', uploadFile.name, uploadType, itemId);
 
     await fs.mkdir(fileDir, { recursive: true });
 
@@ -12,13 +12,13 @@ const userUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
 
     switch (uploadType) {
         case 'photo':
-            await User.updateOne({ _id: itemId }, { $set: { avatar: uploadPath } });
+            await Realtor.updateOne({ _id: itemId }, { $set: { avatar: uploadPath } });
             break;
         case 'doc':
-            await User.updateOne({ _id: itemId }, { $set: { doc: uploadPath } });
+            await Realtor.updateOne({ _id: itemId }, { $set: { doc: uploadPath } });
             break;
         case 'video':
-            await User.updateOne({ _id: itemId }, { $set: { video: uploadPath } });
+            await Realtor.updateOne({ _id: itemId }, { $set: { video: uploadPath } });
             break;
         default:
             console.log(constant.UNKNOWN_FILE);
@@ -47,4 +47,4 @@ const homeUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
     }
 };
 
-module.exports = { userUploadDirBuilder, homeUploadDirBuilder };
+module.exports = { realtorUploadDirBuilder, homeUploadDirBuilder };

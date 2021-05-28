@@ -1,32 +1,32 @@
-const { mailService, userService, uploadService } = require('../service');
+const { mailService, realtorService, uploadService } = require('../service');
 const { constant, emailActionsEnum } = require('../constant');
 const { normalizer, passwordHasher } = require('../helper');
 const { statusCodesEnum } = require('../error');
 const { SITE_URL } = require('../config/config');
 
 module.exports = {
-    getUsers: async (req, res, next) => {
+    getRealtors: async (req, res, next) => {
         try {
-            const findUsers = await userService.findUsers();
-            const users = await normalizer(findUsers);
+            const findRealtors = await realtorService.findAll();
+            const realtors = await normalizer(findRealtors);
 
-            res.json(users);
+            res.json(realtors);
         } catch (e) {
             next(e);
         }
     },
-    getUser: async (req, res, next) => {
+    getRealtor: async (req, res, next) => {
         try {
             const { id } = req.params;
 
-            const findUser = await userService.findOne(id);
-            const user = await normalizer(findUser);
-            res.json(user);
+            const findRealtor = await realtorService.findOne(id);
+            const realtor = await normalizer(findRealtor);
+            res.json(realtor);
         } catch (e) {
             next(e);
         }
     },
-    createUser: async (req, res, next) => {
+    createRealtor: async (req, res, next) => {
         try {
             const {
                 body: { password, email, name },
@@ -34,23 +34,23 @@ module.exports = {
             } = req;
 
             const hashPassword = await passwordHasher.hash(password);
-            const { user, token } = await userService.createOne({ ...req.body, password: hashPassword });
+            const { realtor, token } = await realtorService.createOne({ ...req.body, password: hashPassword });
 
             if (avatar) {
-                await uploadService.userUploadDirBuilder(avatar, user._id, 'photo');
+                await uploadService.realtorUploadDirBuilder(avatar, realtor._id, 'photo');
             }
 
             if (docs) {
-                for (const doc of docs) {
+                for (const doc of docs) { // TODO ADD MORE THAN 1 DOC
                     // eslint-disable-next-line no-await-in-loop
-                    await uploadService.userUploadDirBuilder(doc, user._id, 'doc');
+                    await uploadService.realtorUploadDirBuilder(doc, realtor._id, 'doc');
                 }
             }
 
             if (videos) {
                 for (const video of videos) {
                     // eslint-disable-next-line no-await-in-loop
-                    await uploadService.userUploadDirBuilder(video, user._id, 'video');
+                    await uploadService.realtorUploadDirBuilder(video, realtor._id, 'video');
                 }
             }
 
@@ -61,13 +61,13 @@ module.exports = {
             next(e);
         }
     },
-    deleteUser: async (req, res, next) => {
+    deleteRealtor: async (req, res, next) => {
         try {
             const { id } = req.params;
             const authId = req.infoTokens;
             const { email, name } = req.userInfo;
 
-            await userService.deleteOne(id, authId);
+            await realtorService.deleteOne(id, authId);
             await mailService.sendMail(email, emailActionsEnum.USER_DELETED, { userName: name });
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_DELETED);
@@ -79,7 +79,7 @@ module.exports = {
         try {
             const { user, _id } = req.activeInfo;
 
-            await userService.activateOne(user._id, _id);
+            await realtorService.activateOne(user._id, _id);
             await mailService.sendMail(user.email, emailActionsEnum.WELCOME, { userName: user.name });
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_ACTIVATED);

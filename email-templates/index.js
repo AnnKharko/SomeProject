@@ -6,11 +6,11 @@ module.exports = {
         subject: 'Welcome on the board'
     },
     [emailActionsEnum.USER_DELETED]: {
-        templateName: 'user-deleted',
+        templateName: 'realtor-deleted',
         subject: 'User was deleted'
     },
     [emailActionsEnum.ACTIVATE]: {
         templateName: 'activate',
-        subject: 'Activate user'
+        subject: 'Activate realtor'
     }
 };

@@ -1,3 +1,4 @@
 module.exports = {
-    userValidator: require('./user')
+    realtorValidator: require('./realtor'),
+    homeValidator: require('./home'),
 };
