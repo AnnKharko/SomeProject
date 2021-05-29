@@ -2,7 +2,6 @@ const { mailService, realtorService, uploadService } = require('../service');
 const { constant, emailActionsEnum } = require('../constant');
 const { normalizer, passwordHasher } = require('../helper');
 const { statusCodesEnum } = require('../error');
-const { SITE_URL } = require('../config/config');
 
 module.exports = {
     getRealtors: async (req, res, next) => {
@@ -41,9 +40,7 @@ module.exports = {
             }
 
             // ''''''''''''''''''''''''''''''''''
-
             // await addFileToDB(realtor, avatar, docs, videos); // TODO additional function for updating db
-
             // ''''''''''''''''''''''''''''''''''
 
             if (docs) {
@@ -60,7 +57,7 @@ module.exports = {
                 }
             }
 
-            await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { userName: name, siteURL: SITE_URL, token });
+            await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { realtorName: name, token });
 
             res.status(statusCodesEnum.CREATED).json(constant.CHECK_EMAIL);
         } catch (e) {

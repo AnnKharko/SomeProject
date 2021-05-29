@@ -4,8 +4,24 @@ const path = require('path');
 
 const templatesInfo = require('../email-templates');
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
-const { ROOT_EMAIL, ROOT_EMAIL_PASSWORD } = require('../config/config');
+const {
+    FRONTEND_URL, ROOT_EMAIL, ROOT_EMAIL_PASSWORD, ROOT_EMAIL_SERVICE
+} = require('../config/config');
 const { NO_REPLY } = require('../constant/constant');
+
+if (
+    !FRONTEND_URL
+    || !ROOT_EMAIL
+    || !ROOT_EMAIL_PASSWORD
+    || !ROOT_EMAIL_SERVICE
+    || !NO_REPLY
+) {
+    throw new ErrorHandler(errorCodesEnum.NOT_FOUND, errorCustomCodes.CREDENTIALS_NOT_DEFINED);
+}
+
+const contextExtension = {
+    frontendUrl: FRONTEND_URL
+};
 
 const templateParser = new EmailTemplates({
     views: {
@@ -14,7 +30,7 @@ const templateParser = new EmailTemplates({
 });
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: ROOT_EMAIL_SERVICE,
     auth: {
         user: ROOT_EMAIL,
         pass: ROOT_EMAIL_PASSWORD
@@ -29,10 +45,12 @@ const sendMail = async (userMail, action, context) => {
             throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.WRONG_MAIL_ACTION);
         }
 
+        Object.assign(context, contextExtension);
+
         const html = await templateParser.render(templateInfo.templateName, context);
 
         return transporter.sendMail({
-            from: 'NO_REPLY',
+            from: `${NO_REPLY}<ROOT_EMAIL>`,
             to: userMail,
             subject: templateInfo.subject,
             html

@@ -3,7 +3,7 @@ const { emailActionsEnum } = require('../constant');
 module.exports = {
     [emailActionsEnum.WELCOME]: {
         templateName: 'welcome',
-        subject: 'Welcome on the board'
+        subject: 'Welcome in the Real Estate Agency'
     },
     [emailActionsEnum.USER_DELETED]: {
         templateName: 'realtor-deleted',
@@ -11,6 +11,6 @@ module.exports = {
     },
     [emailActionsEnum.ACTIVATE]: {
         templateName: 'activate',
-        subject: 'Activate realtor'
+        subject: 'Activate realtor account'
     }
 };

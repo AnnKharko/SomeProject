@@ -3,10 +3,10 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const path = require('path');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const path = require('path');
 
 const { apiRouter } = require('./router');
 const {
@@ -14,6 +14,7 @@ const {
 } = require('./config/config');
 
 dotenv.config();
+// dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 const serverRequestRateLimit = rateLimit({
     windowMs: serverRateLimits.period,

@@ -9,6 +9,10 @@ module.exports = {
     NOT_EXIST_USER_WITH_SUCH_ID: {
         customCode: 4042
     },
+    CREDENTIALS_NOT_DEFINED: {
+        customCode: 4043,
+        message: 'Root email credentials are not defined!'
+    },
     // BAD REQUEST
     BAD_REQUEST: {
         customCode: 4000
