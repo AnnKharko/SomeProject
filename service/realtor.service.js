@@ -2,16 +2,9 @@ const { Activate, O_Auth, Realtor } = require('../dataBase/models');
 const { activateTokenizer } = require('../helper');
 
 module.exports = {
-    findAll: () => {
-        const realtors = Realtor.find();
-
-        return realtors;
-    },
-    findOne: (id) => {
-        const realtor = Realtor.findById({ _id: id });
-
-        return realtor;
-    },
+    findAll: () => Realtor.find(),
+    findOne: (id) => Realtor.findById({ _id: id }),
+    findOneByParams: (params) => Realtor.findOne(params),
     createOne: async (userObject) => {
         const token = await activateTokenizer();
 

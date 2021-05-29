@@ -19,7 +19,7 @@ const homeSchema = new Schema({
     buildingType: { type: String, required: true },
     WallMaterial: { type: String, required: true },
     numberOfFloors: { type: Number },
-    floor: { type: Number, required: true },
+    floor: { type: Number },
     numberOfRooms: { type: Number, required: true },
     houseArea: areaSchema,
     landArea: { type: Number },

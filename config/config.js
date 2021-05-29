@@ -9,4 +9,9 @@ module.exports = {
     SITE_URL: process.env.SITE_URL || 'http://localhost:3000',
     FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5000',
     ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN || 'http://localhost:4200;http://localhost:3000',
+
+    serverRateLimits: {
+        period: 15 * 60 * 1000, // 15 minutes
+        maxRequests: 1000
+    }
 };

@@ -15,10 +15,10 @@ const realtorUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
             await Realtor.updateOne({ _id: itemId }, { $set: { avatar: uploadPath } });
             break;
         case 'doc':
-            await Realtor.updateOne({ _id: itemId }, { $set: { doc: uploadPath } });
+            await Realtor.updateOne({ _id: itemId }, { $push: { doc: uploadPath } });
             break;
         case 'video':
-            await Realtor.updateOne({ _id: itemId }, { $set: { video: uploadPath } });
+            await Realtor.updateOne({ _id: itemId }, { $push: { video: uploadPath } });
             break;
         default:
             console.log(constant.UNKNOWN_FILE);
@@ -34,13 +34,13 @@ const homeUploadDirBuilder = async (uploadFile, itemId, uploadType) => {
 
     switch (uploadType) {
         case 'photo':
-            await Home.updateOne({ _id: itemId }, { $set: { photos: uploadPath } });
+            await Home.updateOne({ _id: itemId }, { $push: { photos: uploadPath } });
             break;
         case 'doc':
-            await Home.updateOne({ _id: itemId }, { $set: { docs: uploadPath } });
+            await Home.updateOne({ _id: itemId }, { $push: { docs: uploadPath } });
             break;
         case 'video':
-            await Home.updateOne({ _id: itemId }, { $set: { videos: uploadPath } });
+            await Home.updateOne({ _id: itemId }, { $push: { videos: uploadPath } });
             break;
         default:
             console.log(constant.UNKNOWN_FILE);

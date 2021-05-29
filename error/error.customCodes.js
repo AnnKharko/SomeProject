@@ -43,6 +43,10 @@ module.exports = {
     NOT_VALID_FILE: {
         customCode: 4007
     },
+    USER_ALREADY_REGISTERED: {
+        customCode: 4008,
+        message: 'User is already registered'
+    },
     // PAYLOAD_TOO_LARGE
     FILE_TOO_LARGE: {
         customCode: 4130,

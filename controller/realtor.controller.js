@@ -40,8 +40,14 @@ module.exports = {
                 await uploadService.realtorUploadDirBuilder(avatar, realtor._id, 'photo');
             }
 
+            // ''''''''''''''''''''''''''''''''''
+
+            // await addFileToDB(realtor, avatar, docs, videos); // TODO additional function for updating db
+
+            // ''''''''''''''''''''''''''''''''''
+
             if (docs) {
-                for (const doc of docs) { // TODO ADD MORE THAN 1 DOC
+                for (const doc of docs) {
                     // eslint-disable-next-line no-await-in-loop
                     await uploadService.realtorUploadDirBuilder(doc, realtor._id, 'doc');
                 }

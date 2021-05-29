@@ -1,6 +1,7 @@
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const { realtorValidator } = require('../validator');
 const { Realtor } = require('../dataBase/models');
+const { realtorService } = require('../service');
 
 module.exports = {
     checkIsRealtorValid: async (req, res, next) => {
@@ -26,6 +27,21 @@ module.exports = {
             }
 
             req.userInfo = user;
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+    checkIsEmailExists: async (req, res, next) => {
+        try {
+            const { email } = req.body;
+            const realtor = await realtorService.findOneByParams({ email });
+
+            if (realtor) {
+                // res.json('REALTOR WITH THIS EMAIL EXIST');
+                throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.USER_ALREADY_REGISTERED);
+            }
+            // res.json(body);
             next();
         } catch (e) {
             next(e);

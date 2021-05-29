@@ -5,6 +5,7 @@ const { authMiddleware, uploadMiddleware, realtorMiddleware } = require('../midd
 
 router.get('/', realtorController.getRealtors);
 router.post('/',
+    realtorMiddleware.checkIsEmailExists,
     uploadMiddleware.checkFile,
     uploadMiddleware.checkAvatar,
     realtorMiddleware.checkIsRealtorValid,

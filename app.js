@@ -4,13 +4,21 @@ const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const { apiRouter } = require('./router');
+const {
+    MONGO_URL, PORT, ALLOWED_ORIGIN, serverRateLimits
+} = require('./config/config');
+
 dotenv.config();
 
-const { apiRouter } = require('./router');
-const { MONGO_URL, PORT, ALLOWED_ORIGIN } = require('./config/config');
+const serverRequestRateLimit = rateLimit({
+    windowMs: serverRateLimits.period,
+    max: serverRateLimits.maxRequests
+});
 
 const app = express();
 // eslint-disable-next-line no-use-before-define
@@ -18,7 +26,7 @@ _connectDB();
 
 // eslint-disable-next-line no-use-before-define
 app.use(cors({ origin: configureCors }));
-
+app.use(serverRequestRateLimit);
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(fileUpload());
@@ -54,7 +62,7 @@ function _connectDB() {
 function configureCors(origin, callback) {
     const whiteList = ALLOWED_ORIGIN.split(';');
 
-    if (!origin) {
+    if (!origin) { // FOR postman
         return callback(null, true);
     }
 
