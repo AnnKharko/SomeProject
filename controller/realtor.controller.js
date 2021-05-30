@@ -1,3 +1,4 @@
+const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const { mailService, realtorService, uploadService } = require('../service');
 const { constant, emailActionsEnum } = require('../constant');
 const { normalizer, passwordHasher } = require('../helper');
@@ -80,8 +81,11 @@ module.exports = {
     },
     activateRealtor: async (req, res, next) => {
         try {
-            const { realtor, _id } = req.activeInfo; // ????????????
-            console.log(realtor, _id);
+            const { realtor, _id } = req.activeInfo;
+
+            if (realtor.status !== constant.STATUS_ENUM.PENDING) { // additional
+                return next(new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.REALTOR_ALREADY_ACTIVATED));
+            }
 
             await realtorService.activateOne(realtor._id, _id);
             await mailService.sendMail(realtor.email, emailActionsEnum.WELCOME, { userName: realtor.name });
