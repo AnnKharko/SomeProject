@@ -10,9 +10,9 @@ router.post('/',
     uploadMiddleware.checkAvatar,
     realtorMiddleware.checkIsRealtorValid,
     realtorController.createRealtor);
-router.post('/activate', authMiddleware.checkActivateToken, realtorController.activateUser);
+router.post('/activate', authMiddleware.checkActivateToken, realtorController.activateRealtor);
 
-router.use('/:id', realtorMiddleware.checkIsIdValid);
+// router.use('/:id', realtorMiddleware.checkIsIdValid);
 router.get('/:id', realtorController.getRealtor);
 router.delete('/:id', authMiddleware.checkAccessToken, realtorController.deleteRealtor);
 

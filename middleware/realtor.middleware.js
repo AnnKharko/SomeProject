@@ -1,6 +1,6 @@
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
-const { realtorValidator } = require('../validator');
 const { Realtor } = require('../dataBase/models');
+const { realtorValidator } = require('../validator');
 const { realtorService } = require('../service');
 
 module.exports = {
@@ -38,7 +38,6 @@ module.exports = {
             const realtor = await realtorService.findOneByParams({ email });
 
             if (realtor) {
-                // res.json('REALTOR WITH THIS EMAIL EXIST');
                 throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.USER_ALREADY_REGISTERED);
             }
             // res.json(body);

@@ -1,5 +1,5 @@
 module.exports = {
-    WELCOME: 1,
-    USER_DELETED: 2,
-    ACTIVATE: 3
+    WELCOME: 2,
+    USER_DELETED: 3,
+    ACTIVATE: 1
 };

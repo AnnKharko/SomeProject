@@ -33,7 +33,7 @@ module.exports = {
             } = req;
 
             const hashPassword = await passwordHasher.hash(password);
-            const { realtor, token } = await realtorService.createOne({ ...req.body, password: hashPassword });
+            const { realtor, activate_token } = await realtorService.createOne({ ...req.body, password: hashPassword });
 
             if (avatar) {
                 await uploadService.realtorUploadDirBuilder(avatar, realtor._id, 'photo');
@@ -57,7 +57,7 @@ module.exports = {
                 }
             }
 
-            await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { realtorName: name, token });
+            await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { realtorName: name, token: activate_token });
 
             res.status(statusCodesEnum.CREATED).json(constant.CHECK_EMAIL);
         } catch (e) {
@@ -78,12 +78,13 @@ module.exports = {
             next(e);
         }
     },
-    activateUser: async (req, res, next) => {
+    activateRealtor: async (req, res, next) => {
         try {
-            const { user, _id } = req.activeInfo;
+            const { realtor, _id } = req.activeInfo; // ????????????
+            console.log(realtor, _id);
 
-            await realtorService.activateOne(user._id, _id);
-            await mailService.sendMail(user.email, emailActionsEnum.WELCOME, { userName: user.name });
+            await realtorService.activateOne(realtor._id, _id);
+            await mailService.sendMail(realtor.email, emailActionsEnum.WELCOME, { userName: realtor.name });
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_ACTIVATED);
         } catch (e) {
