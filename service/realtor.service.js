@@ -1,24 +1,26 @@
-const { Activate, O_Auth, Realtor } = require('../dataBase/models');
-const { activateTokenizer } = require('../helper');
+const { O_Auth, Realtor } = require('../dataBase/models');
+const { tokenizer } = require('../helper');
+const { STATUS_ENUM } = require('../constant/constant');
 
 module.exports = {
     findAll: () => Realtor.find(),
     findOne: (id) => Realtor.findById({ _id: id }),
     findOneByParams: (params) => Realtor.findOne(params),
     createOne: async (userObject) => {
-        const token = await activateTokenizer();
+        // const token = await activateTokenizer();
+        const { activate_token } = tokenizer('activate');
 
         const realtor = await Realtor.create(userObject);
-        await Activate.create({ ...token, user: realtor._id });
+        await O_Auth.create({ activate_token, realtor: realtor._id });
 
-        return { realtor, token };
+        return { realtor, activate_token };
     },
     deleteOne: async (id, authId) => {
         await Realtor.findByIdAndDelete({ _id: id });
         await O_Auth.findByIdAndDelete({ _id: authId });
     },
     activateOne: async (id, tokenId) => {
-        await Realtor.findByIdAndUpdate(id, { active: true });
-        await Activate.findByIdAndDelete(tokenId);
+        await Realtor.findByIdAndUpdate(id, { status: STATUS_ENUM.CONFIRMED });
+        await O_Auth.findByIdAndDelete({ _id: tokenId });
     }
 };

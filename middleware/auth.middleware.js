@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const { constant } = require('../constant');
 const { JWT_ACTIVATE_SECRET, JWT_SECRET, JWT_REFRESH_SECRET } = require('../config/config');
-const { Activate, O_Auth } = require('../dataBase/models');
+const { O_Auth } = require('../dataBase/models');
 
 module.exports = {
     checkAccessToken: async (req, res, next) => {
@@ -61,7 +61,7 @@ module.exports = {
     },
     checkActivateToken: async (req, res, next) => {
         try {
-            const { activate_token } = req.body;
+            const activate_token = req.get(constant.AUTHORIZATION);
 
             if (!activate_token) {
                 throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.ACTIVATE_TOKEN_IS_REQUIRED);
@@ -73,12 +73,12 @@ module.exports = {
                 }
             });
 
-            const user = await Activate.findOne({ activate_token }).populate('user');
+            const realtor = await O_Auth.findOne({ activate_token }).populate('realtor');
 
-            if (!user) {
+            if (!realtor) {
                 throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.NOT_VALID_ACTIVATE_TOKEN);
             }
-            req.activeInfo = user;
+            req.activeInfo = realtor;
 
             next();
         } catch (e) {
