@@ -1,5 +1,7 @@
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
-const { mailService, realtorService, uploadService } = require('../service');
+const {
+    logService, mailService, realtorService, uploadService
+} = require('../service');
 const { constant, emailActionsEnum } = require('../constant');
 const { normalizer, passwordHasher } = require('../helper');
 const { statusCodesEnum } = require('../error');
@@ -59,6 +61,7 @@ module.exports = {
             }
 
             await mailService.sendMail(email, emailActionsEnum.ACTIVATE, { realtorName: name, token: activate_token });
+            await logService.createLog({ event: constant.LOG_ENUM.REALTOR_REGISTERED, realtorId: realtor._id });
 
             res.status(statusCodesEnum.CREATED).json(constant.CHECK_EMAIL);
         } catch (e) {
@@ -89,6 +92,7 @@ module.exports = {
 
             await realtorService.activateOne(realtor._id, _id);
             await mailService.sendMail(realtor.email, emailActionsEnum.WELCOME, { userName: realtor.name });
+            await logService.createLog({ event: constant.LOG_ENUM.REALTOR_CONFIRMED, realtorId: realtor._id });
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_ACTIVATED);
         } catch (e) {
