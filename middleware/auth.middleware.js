@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const { constant } = require('../constant');
-const { JWT_ACTIVATE_SECRET, JWT_SECRET, JWT_REFRESH_SECRET } = require('../config/config');
+const {
+    JWT_ACTIVATE_SECRET, JWT_RESET_PASSWORD_SECRET, JWT_REFRESH_SECRET, JWT_SECRET
+} = require('../config/config');
 const { O_Auth } = require('../dataBase/models');
 
 module.exports = {
@@ -20,7 +22,7 @@ module.exports = {
             });
 
             // ===== CHECK DATA BASE
-            const tokens = await O_Auth.findOne({ access_token }).populate('user');
+            const tokens = await O_Auth.findOne({ access_token }).populate('realtor');
 
             if (!tokens) {
                 throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.NOT_VALID_TOKEN);
@@ -79,6 +81,32 @@ module.exports = {
                 throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.NOT_VALID_ACTIVATE_TOKEN);
             }
             req.activeInfo = realtor;
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+    checkResetPasswordToken: async (req, res, next) => {
+        try {
+            const reset_password_token = req.get(constant.AUTHORIZATION);
+
+            if (!reset_password_token) {
+                throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.RESET_PASSWORD_TOKEN_IS_REQUIRED);
+            }
+
+            jwt.verify(reset_password_token, JWT_RESET_PASSWORD_SECRET, (err) => {
+                if (err) {
+                    throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.NOT_VALID_RESET_PASSWORD_TOKEN);
+                }
+            });
+
+            const realtor = await O_Auth.findOne({ reset_password_token }).populate('realtor');
+
+            if (!realtor) {
+                throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.NOT_VALID_RESET_PASSWORD_TOKEN);
+            }
+            req.resPasswordInfo = realtor;
 
             next();
         } catch (e) {

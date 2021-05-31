@@ -11,6 +11,8 @@ router.post('/',
     realtorMiddleware.checkIsRealtorValid,
     realtorController.createRealtor);
 router.post('/activate', authMiddleware.checkActivateToken, realtorController.activateRealtor);
+router.post('/password/forgot', realtorMiddleware.checkIsRealtorExists, realtorController.forgotPassword);
+router.post('/password/reset', authMiddleware.checkResetPasswordToken, realtorController.resetPassword);
 
 // router.use('/:id', realtorMiddleware.checkIsIdValid);
 router.get('/:id', realtorController.getRealtor);

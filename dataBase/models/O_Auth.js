@@ -4,6 +4,7 @@ const oAuthSchema = new Schema({
     activate_token: { type: String },
     access_token: { type: String },
     refresh_token: { type: String },
+    reset_password_token: { type: String },
     realtor: { type: Schema.Types.ObjectId, ref: 'Realtor' },
 }, { timestamps: true });
 

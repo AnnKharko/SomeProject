@@ -7,9 +7,11 @@ module.exports = {
     JWT_ACTIVATE_SECRET: process.env.JWT_ACTIVATE_SECRET || 'ACTIVATE_SECRET',
     JWT_ACTIVATE_SECRET_LIFETIME: process.env.JWT_ACTIVATE_SECRET_LIFETIME || '1d',
 
+    JWT_RESET_PASSWORD_SECRET: process.env.JWT_RESET_PASSWORD_SECRET || 'RESET_PASSWORD_SECRET',
+    JWT_RESET_PASSWORD_SECRET_LIFETIME: process.env.JWT_RESET_PASSWORD_SECRET_LIFETIME || '5m',
     PORT: 5000,
-    ROOT_EMAIL: process.env.ROOT_EMAIL || 'kokos.Alina2020@gmail.com',
-    ROOT_EMAIL_PASSWORD: process.env.ROOT_EMAIL_PASSWORD || '1234567890poiuytrewq',
+    ROOT_EMAIL: process.env.ROOT_EMAIL || '',
+    ROOT_EMAIL_PASSWORD: process.env.ROOT_EMAIL_PASSWORD || '',
     ROOT_EMAIL_SERVICE: process.env.ROOT_EMAIL_SERVICE || 'gmail',
     FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5000',
     ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN || 'http://localhost:4200;http://localhost:3000',
