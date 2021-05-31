@@ -1,3 +1,3 @@
 module.exports = {
-    createRealtorValidator: require('./create-realtor-validator')
+    createRealtorValidator: require('./create-realtor-validator'),
 };

@@ -45,5 +45,21 @@ module.exports = {
         } catch (e) {
             next(e);
         }
+    },
+    checkIsRealtorExists: async (req, res, next) => {
+        try {
+            const { email } = req.body;
+            const realtor = await realtorService.findOneByParams({ email });
+
+            if (!realtor) {
+                return next(new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.USER_NOT_FOUND));
+            }
+
+            req.realtor = realtor;
+            // res.json(body);
+            next();
+        } catch (e) {
+            next(e);
+        }
     }
 };

@@ -91,10 +91,41 @@ module.exports = {
             }
 
             await realtorService.activateOne(realtor._id, _id);
-            await mailService.sendMail(realtor.email, emailActionsEnum.WELCOME, { userName: realtor.name });
+            await mailService.sendMail(realtor.email, emailActionsEnum.WELCOME, { realtorName: realtor.name });
             await logService.createLog({ event: constant.LOG_ENUM.REALTOR_CONFIRMED, realtorId: realtor._id });
 
             res.status(statusCodesEnum.OK).json(constant.USER_IS_ACTIVATED);
+        } catch (e) {
+            next(e);
+        }
+    },
+    forgotPassword: async (req, res, next) => {
+        try {
+            const { _id, email, name } = req.realtor;
+            const token = await realtorService.forgotPass(_id);
+
+            await mailService.sendMail(email, emailActionsEnum.RESET_PASSWORD, { realtorName: name, token });
+            await logService.createLog({ event: constant.LOG_ENUM.REALTOR_FORGOT_PASSWORD, realtorId: _id });
+
+            res.end();
+        } catch (e) {
+            next(e);
+        }
+    },
+    resetPassword: async (req, res, next) => {
+        try {
+            const { resPasswordInfo: { _id, realtor }, body: { password } } = req;
+
+            const hashPassword = await passwordHasher.hash(password);
+            await realtorService.resetPass(realtor._id, hashPassword, _id);
+            await mailService.sendMail(
+                realtor.email,
+                emailActionsEnum.SUCCESSFULLY_RESET_PASSWORD,
+                { realtorName: realtor.name }
+            );
+            await logService.createLog({ event: constant.LOG_ENUM.REALTOR_RESET_PASSWORD, realtorId: realtor._id });
+
+            res.end();
         } catch (e) {
             next(e);
         }

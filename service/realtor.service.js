@@ -21,5 +21,15 @@ module.exports = {
     activateOne: async (id, tokenId) => {
         await Realtor.findByIdAndUpdate(id, { status: STATUS_ENUM.CONFIRMED });
         await O_Auth.findByIdAndDelete({ _id: tokenId });
+    },
+    forgotPass: async (realtorId) => {
+        const { reset_password_token } = tokenizer('reset_password');
+
+        await O_Auth.create({ reset_password_token, realtor: realtorId });
+        return reset_password_token;
+    },
+    resetPass: async (realtorId, newPassword, tokenId) => {
+        await Realtor.findByIdAndUpdate(realtorId, { password: newPassword });
+        await O_Auth.findByIdAndDelete(tokenId);
     }
 };

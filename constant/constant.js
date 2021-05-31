@@ -47,6 +47,8 @@ module.exports = {
         REALTOR_LOGIN: 'realtor_login',
         REALTOR_LOGOUT: 'realtor_logout',
         REALTOR_CONFIRMED: 'realtor_confirmed',
-        REALTOR_REGISTERED: 'realtor_registered'
+        REALTOR_REGISTERED: 'realtor_registered',
+        REALTOR_FORGOT_PASSWORD: 'realtor_forgot_password',
+        REALTOR_RESET_PASSWORD: 'realtor_reset_password',
     },
 };

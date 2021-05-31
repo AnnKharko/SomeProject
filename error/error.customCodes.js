@@ -18,10 +18,8 @@ module.exports = {
         customCode: 4000
     },
     WRONG_EMAIL_OR_PASSWORD: {
-        customCode: 4001
-        // message: {
-        //     en: 'Wrong email or password'
-        // },
+        customCode: 4001,
+        message: 'Wrong email or password'
     },
     NOT_VALID_TOKEN: {
         customCode: 4002
@@ -35,7 +33,7 @@ module.exports = {
     REFRESH_TOKEN_IS_REQUIRED: {
         customCode: 4005
     },
-    WRONG_MAIL_ACTION: {
+    WRONG_MAIL_ACTION: { // ? 500
         customCode: 4006
     },
     NOT_VALID_ACTIVATE_TOKEN: {
@@ -44,15 +42,21 @@ module.exports = {
     ACTIVATE_TOKEN_IS_REQUIRED: {
         customCode: 4008
     },
+    RESET_PASSWORD_TOKEN_IS_REQUIRED: {
+        customCode: 4009
+    },
+    NOT_VALID_RESET_PASSWORD_TOKEN: {
+        customCode: 40010
+    },
     NOT_VALID_FILE: {
-        customCode: 4007
+        customCode: 40011
     },
     USER_ALREADY_REGISTERED: {
-        customCode: 4008,
+        customCode: 40012,
         message: 'User is already registered'
     },
     REALTOR_ALREADY_ACTIVATED: {
-        customCode: 4008,
+        customCode: 40013,
         message: 'Realtor is already activated'
     },
     // PAYLOAD_TOO_LARGE
@@ -81,5 +85,9 @@ module.exports = {
     FORBIDDEN: {
         customCode: 4030,
         message: 'Access denied'
-    }
+    },
+    // SERVER_ERROR
+    WRONG_ACTION: {
+        customCode: 5000
+    },
 };
