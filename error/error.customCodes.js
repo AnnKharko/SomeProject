@@ -51,6 +51,10 @@ module.exports = {
         customCode: 4008,
         message: 'User is already registered'
     },
+    REALTOR_ALREADY_ACTIVATED: {
+        customCode: 4008,
+        message: 'Realtor is already activated'
+    },
     // PAYLOAD_TOO_LARGE
     FILE_TOO_LARGE: {
         customCode: 4130,

@@ -42,5 +42,11 @@ module.exports = {
     ROLE_ENUM: {
         ADMIN: 'admin',
         USER: 'user'
-    }
+    },
+    LOG_ENUM: {
+        REALTOR_LOGIN: 'realtor_login',
+        REALTOR_LOGOUT: 'realtor_logout',
+        REALTOR_CONFIRMED: 'realtor_confirmed',
+        REALTOR_REGISTERED: 'realtor_registered'
+    },
 };

@@ -27,6 +27,6 @@ const homeSchema = new Schema({
     docs: [{ type: String }],
     videos: [{ type: String }],
     createdAt: { type: Date, default: Date.now() }
-});
+}, { timestamps: true });
 
 module.exports = model('Home', homeSchema);

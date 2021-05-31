@@ -7,7 +7,6 @@ module.exports = {
     findOne: (id) => Realtor.findById({ _id: id }),
     findOneByParams: (params) => Realtor.findOne(params),
     createOne: async (userObject) => {
-        // const token = await activateTokenizer();
         const { activate_token } = tokenizer('activate');
 
         const realtor = await Realtor.create(userObject);
