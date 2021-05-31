@@ -33,7 +33,7 @@ module.exports = {
     REFRESH_TOKEN_IS_REQUIRED: {
         customCode: 4005
     },
-    WRONG_MAIL_ACTION: {
+    WRONG_MAIL_ACTION: { // ? 500
         customCode: 4006
     },
     NOT_VALID_ACTIVATE_TOKEN: {
@@ -85,5 +85,9 @@ module.exports = {
     FORBIDDEN: {
         customCode: 4030,
         message: 'Access denied'
-    }
+    },
+    // SERVER_ERROR
+    WRONG_ACTION: {
+        customCode: 5000
+    },
 };

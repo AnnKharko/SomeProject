@@ -1,6 +1,7 @@
 module.exports = {
     authMiddleware: require('./auth.middleware'),
-    uploadMiddleware: require('./upload.middleware'),
+    homeMiddleware: require('./home.middleware'),
     realtorMiddleware: require('./realtor.middleware'),
-    homeMiddleware: require('./home.middleware')
+    uploadMiddleware: require('./upload.middleware'),
+    validatorMiddleware: require('./validator.middleware')
 };

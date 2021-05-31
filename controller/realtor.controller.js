@@ -114,9 +114,10 @@ module.exports = {
     },
     resetPassword: async (req, res, next) => {
         try {
-            const { resPasswordInfo: { _id, realtor }, body: { newPassword } } = req;
+            const { resPasswordInfo: { _id, realtor }, body: { password } } = req;
 
-            await realtorService.resetPass(realtor._id, newPassword, _id);
+            const hashPassword = await passwordHasher.hash(password);
+            await realtorService.resetPass(realtor._id, hashPassword, _id);
             await mailService.sendMail(
                 realtor.email,
                 emailActionsEnum.SUCCESSFULLY_RESET_PASSWORD,
