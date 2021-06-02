@@ -40,7 +40,7 @@ module.exports = {
             if (realtor) {
                 throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.USER_ALREADY_REGISTERED);
             }
-            // res.json(body);
+
             next();
         } catch (e) {
             next(e);
@@ -56,7 +56,6 @@ module.exports = {
             }
 
             req.realtor = realtor;
-            // res.json(body);
             next();
         } catch (e) {
             next(e);
