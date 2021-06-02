@@ -13,8 +13,8 @@ const {
 } = require('../config/config');
 
 module.exports = (action) => {
-    const access_token = jwt.sign({}, JWT_SECRET, { expiresIn: JWT_SECRET_LIFETIME });
-    const refresh_token = jwt.sign({}, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_SECRET_LIFETIME });
+    let access_token = '';
+    let refresh_token = '';
     let activate_token = '';
     let reset_password_token = '';
 
@@ -24,6 +24,10 @@ module.exports = (action) => {
             break;
         case 'reset_password':
             reset_password_token = jwt.sign({}, JWT_RESET_PASSWORD_SECRET, { expiresIn: JWT_RESET_PASSWORD_SECRET_LIFETIME });
+            break;
+        case 'authorization':
+            access_token = jwt.sign({}, JWT_SECRET, { expiresIn: JWT_SECRET_LIFETIME });
+            refresh_token = jwt.sign({}, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_SECRET_LIFETIME });
             break;
 
         default: throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.WRONG_MAIL_ACTION);

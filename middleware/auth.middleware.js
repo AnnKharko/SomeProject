@@ -29,6 +29,7 @@ module.exports = {
             }
 
             req.infoTokens = tokens._id;
+            req.realtorId = tokens.realtor;
             next();
         } catch (e) {
             next(e);

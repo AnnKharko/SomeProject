@@ -1,6 +1,6 @@
 const { O_Auth, Realtor } = require('../dataBase/models');
 const { tokenizer } = require('../helper');
-const { STATUS_ENUM } = require('../constant/constant');
+const { STATUS_ENUM, ROLE_ENUM } = require('../constant/constant');
 
 module.exports = {
     findAll: () => Realtor.find(),
@@ -19,7 +19,7 @@ module.exports = {
         await O_Auth.findByIdAndDelete({ _id: authId });
     },
     activateOne: async (id, tokenId) => {
-        await Realtor.findByIdAndUpdate(id, { status: STATUS_ENUM.CONFIRMED });
+        await Realtor.findByIdAndUpdate(id, { status: STATUS_ENUM.CONFIRMED, role: ROLE_ENUM.REALTOR });
         await O_Auth.findByIdAndDelete({ _id: tokenId });
     },
     forgotPass: async (realtorId) => {
