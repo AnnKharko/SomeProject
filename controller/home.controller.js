@@ -27,10 +27,14 @@ module.exports = {
     createHome: async (req, res, next) => {
         try {
             const {
-                body, photos, docs, videos
+                body, photos, docs, videos, realtorId
             } = req;
 
-            const home = await homeService.createOne(body);
+            console.log('||||||||||||||||||||||');
+            console.log(realtorId._id);
+            console.log('||||||||||||||||||||||');
+
+            const home = await homeService.createOne({ ...body, realtor: realtorId._id });
 
             if (photos) {
                 for (const photo of photos) {

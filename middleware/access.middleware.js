@@ -5,9 +5,7 @@ module.exports = {
     checkRole: (whoHaveAccess = []) => async (req, res, next) => {
         try {
             const { realtorId } = req;
-            console.log(realtorId);
             const realtor = await Realtor.findById(realtorId);
-            console.log(realtor);
 
             if (!whoHaveAccess.length) {
                 return next();

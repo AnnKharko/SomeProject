@@ -1,7 +1,7 @@
 module.exports = {
     MONGO_URL: process.env.MONGO_URL || 'mongodb://localhost:27017/realEstateDB',
     JWT_SECRET: process.env.JWT_SECRET || 'SECRET',
-    JWT_SECRET_LIFETIME: process.env.JWT_SECRET_LIFETIME || '1m',
+    JWT_SECRET_LIFETIME: process.env.JWT_SECRET_LIFETIME || '10m',
     JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || 'REFRESH_SECRET',
     JWT_REFRESH_SECRET_LIFETIME: process.env.JWT_REFRESH_SECRET_LIFETIME || '30d',
     JWT_ACTIVATE_SECRET: process.env.JWT_ACTIVATE_SECRET || 'ACTIVATE_SECRET',
