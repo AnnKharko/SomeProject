@@ -1,6 +1,5 @@
 const { homeService, uploadService } = require('../service');
-const { statusCodesEnum } = require('../error');
-const { constant } = require('../constant');
+const { constant, statusCodesEnum } = require('../constant');
 
 module.exports = {
     getAllHomes: async (req, res, next) => {

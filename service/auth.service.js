@@ -28,5 +28,6 @@ module.exports = {
             access_token,
             refresh_token
         };
-    }
+    },
+    removeTokens: (id) => O_Auth.findByIdAndDelete(id)
 };

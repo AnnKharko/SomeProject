@@ -2,6 +2,7 @@ const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const { Realtor } = require('../dataBase/models');
 const { realtorValidator } = require('../validator');
 const { realtorService } = require('../service');
+const { STATUS_ENUM } = require('../constant/constant');
 
 module.exports = {
     checkIsRealtorValid: async (req, res, next) => {
@@ -56,6 +57,19 @@ module.exports = {
             }
 
             req.realtor = realtor;
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+    chekIsRealtorConfirmed: (req, res, next) => {
+        try {
+            const { status } = req.realtor;
+
+            if (status !== STATUS_ENUM.CONFIRMED) {
+                return next(new ErrorHandler(errorCodesEnum.FORBIDDEN, errorCustomCodes.FORBIDDEN_REALTOR_NOT_CONFIRMED));
+            }
+
             next();
         } catch (e) {
             next(e);

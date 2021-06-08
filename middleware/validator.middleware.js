@@ -28,4 +28,18 @@ module.exports = {
             next(e);
         }
     },
+    loginValidate: async (req, res, next) => {
+        try {
+            const { error } = await someFieldValidator.loginValidator.validate(req.body);
+
+            if (error) {
+                // throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.BAD_REQUEST, error.details[0].message);
+                return next(new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.BAD_REQUEST, error.details[0].message));
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
 };

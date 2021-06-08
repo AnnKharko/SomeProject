@@ -2,9 +2,8 @@ const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const {
     logService, mailService, realtorService, uploadService
 } = require('../service');
-const { constant, emailActionsEnum } = require('../constant');
+const { constant, emailActionsEnum, statusCodesEnum } = require('../constant');
 const { normalizer, passwordHasher } = require('../helper');
-const { statusCodesEnum } = require('../error');
 
 module.exports = {
     getRealtors: async (req, res, next) => {

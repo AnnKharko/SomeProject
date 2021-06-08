@@ -86,6 +86,10 @@ module.exports = {
         customCode: 4030,
         message: 'Access denied'
     },
+    FORBIDDEN_REALTOR_NOT_CONFIRMED: {
+        customCode: 4031,
+        message: 'Realtor is not confirmed'
+    },
     // SERVER_ERROR
     WRONG_ACTION: {
         customCode: 5000
