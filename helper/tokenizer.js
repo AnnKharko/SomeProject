@@ -19,7 +19,7 @@ module.exports = (action) => {
     let reset_password_token = '';
 
     switch (action) {
-        case 'activate': // !!!!!!!!!!!!!!!
+        case 'activate':
             activate_token = jwt.sign({}, JWT_ACTIVATE_SECRET, { expiresIn: JWT_ACTIVATE_SECRET_LIFETIME });
             break;
         case 'reset_password':
@@ -30,7 +30,7 @@ module.exports = (action) => {
             refresh_token = jwt.sign({}, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_SECRET_LIFETIME });
             break;
 
-        default: throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.WRONG_MAIL_ACTION);
+        default: throw new ErrorHandler(errorCodesEnum.SERVER_ERROR, errorCustomCodes.WRONG_ACTION);
     }
     return {
         access_token,

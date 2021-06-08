@@ -42,7 +42,7 @@ const sendMail = async (userMail, action, context) => {
         const templateInfo = templatesInfo[action];
 
         if (!templateInfo) {
-            throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.WRONG_MAIL_ACTION);
+            throw new ErrorHandler(errorCodesEnum.SERVER_ERROR, errorCustomCodes.WRONG_MAIL_ACTION);
         }
 
         Object.assign(context, contextExtension);
