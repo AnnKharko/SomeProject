@@ -1,10 +1,10 @@
 const Joi = require('joi');
 
-const areaSubSchema = Joi.object({
-    totalArea: Joi.number().required(),
-    livingSpace: Joi.number().required(),
-    kitchenArea: Joi.number().required()
-});
+// const areaSubSchema = Joi.object({
+//     totalArea: Joi.number().required(),
+//     livingSpace: Joi.number().required(),
+//     kitchenArea: Joi.number().required()
+// });
 
 module.exports = Joi.object({
     // home: Joi.string().required(),
@@ -21,7 +21,10 @@ module.exports = Joi.object({
     floor: Joi.number().integer().min(1).when('apartment', { is: true, then: Joi.required() }),
     numberOfFloors: Joi.number().integer().min(1).when('house', { is: true, then: Joi.required() }),
     numberOfRooms: Joi.number().integer().min(1).required(),
-    houseArea: areaSubSchema,
+    // houseArea: areaSubSchema.required(), //  todo something wrong when crete home: not save houseArea
+    totalArea: Joi.number().required(),
+    livingSpace: Joi.number().required(),
+    kitchenArea: Joi.number().required(),
     landArea: Joi.number().when('house', { is: true, then: Joi.required() }),
     photos: Joi.array().items({
         photo: Joi.string().alphanum()

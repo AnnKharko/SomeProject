@@ -1,10 +1,20 @@
 const router = require('express').Router();
 
 const { homeController } = require('../controller');
-const { uploadMiddleware } = require('../middleware');
+const {
+    authMiddleware, accessMiddleware, homeMiddleware, uploadMiddleware
+} = require('../middleware');
 
 router.get('/', homeController.getAllHomes);
-router.post('/', uploadMiddleware.checkFile, homeController.createHome);
+router.post('/',
+    authMiddleware.checkAccessToken,
+    accessMiddleware.checkRole([
+        'admin',
+        'realtor'
+    ]),
+    uploadMiddleware.checkFile,
+    homeMiddleware.checkIsHomeValid,
+    homeController.createHome);
 
 // router.use('/:id', middleware.checkIsPresent);
 router.get('/:id', homeController.getHome);

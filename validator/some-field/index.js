@@ -1,4 +1,5 @@
 module.exports = {
-    passwordValidator: require('./password-validator'),
-    emailValidator: require('./email-validator')
+    emailValidator: require('./email-validator'),
+    loginValidator: require('./login-validator'),
+    passwordValidator: require('./password-validator')
 };
