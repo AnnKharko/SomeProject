@@ -51,5 +51,5 @@ module.exports = {
         REALTOR_REGISTERED: 'realtor_registered',
         REALTOR_FORGOT_PASSWORD: 'realtor_forgot_password',
         REALTOR_RESET_PASSWORD: 'realtor_reset_password',
-    },
+    }
 };
