@@ -1,10 +1,11 @@
 const { uploadService } = require('../service');
 
 // eslint-disable-next-line complexity
- const addFileToDB = async (object, photos, docs, videos) => {
-    switch (object) {
+module.exports = async (model, object, photos, docs, videos) => {
+    switch (model) { //  error: "uploadFileDirBuilder is not a function"
         case 'realtor':
             const avatar = photos;
+
             if (avatar) {
                 await uploadService.realtorUploadDirBuilder(avatar, object._id, 'photo');
             }
@@ -48,4 +49,4 @@ const { uploadService } = require('../service');
     }
 };
 
-module.exports = { addFileToDB };
+// module.exports = { addFileToDB };

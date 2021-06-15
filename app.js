@@ -12,6 +12,7 @@ const { apiRouter } = require('./router');
 const {
     MONGO_URL, PORT, ALLOWED_ORIGIN, serverRateLimits
 } = require('./config/config');
+const Sentry = require('./logger/sentry');
 
 dotenv.config();
 // dotenv.config({ path: path.join(process.cwd(), '.env') });
@@ -25,6 +26,8 @@ const app = express();
 // eslint-disable-next-line no-use-before-define
 _connectDB();
 
+app.use(Sentry.Handlers.requestHandler());
+
 // eslint-disable-next-line no-use-before-define
 app.use(cors({ origin: configureCors }));
 app.use(serverRequestRateLimit);
@@ -37,9 +40,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', apiRouter);
+app.use(Sentry.Handlers.errorHandler());
 
 // eslint-disable-next-line no-unused-vars
 app.use('*', (err, req, res, next) => {
+    Sentry.captureException(err);
+
     res
         .status(err.status || 500)
         .json({

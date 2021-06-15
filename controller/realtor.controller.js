@@ -42,7 +42,7 @@ module.exports = {
             }
 
             // ''''''''''''''''''''''''''''''''''
-            // await addFileToDB(realtor, avatar, docs, videos); // TODO additional function for updating db
+            // await addFileToDB('realtor', realtor, avatar, docs, videos); // TODO additional function for updating db
             // ''''''''''''''''''''''''''''''''''
 
             if (docs) {
