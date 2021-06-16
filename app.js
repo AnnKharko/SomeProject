@@ -7,12 +7,14 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
+const swaggerUI = require('swagger-ui-express');
 
 const { apiRouter } = require('./router');
 const {
     MONGO_URL, PORT, ALLOWED_ORIGIN, serverRateLimits
 } = require('./config/config');
 const Sentry = require('./logger/sentry');
+const swaggerDoc = require('./docs/swagger.json');
 
 dotenv.config();
 // dotenv.config({ path: path.join(process.cwd(), '.env') });
@@ -39,6 +41,7 @@ app.use(express.static(path.join(process.cwd(), 'static')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.use('/', apiRouter);
 app.use(Sentry.Handlers.errorHandler());
 
