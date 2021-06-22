@@ -111,18 +111,32 @@ module.exports = {
             next(e);
         }
     },
-    resetPassword: async (req, res, next) => {
+    resetForgotPassword: async (req, res, next) => {
         try {
             const { resPasswordInfo: { _id, realtor }, body: { password } } = req;
 
             const hashPassword = await passwordHasher.hash(password);
-            await realtorService.resetPass(realtor._id, hashPassword, _id);
+            await realtorService.resetForgotPass(realtor._id, hashPassword, _id);
             await mailService.sendMail(
                 realtor.email,
                 emailActionsEnum.SUCCESSFULLY_RESET_PASSWORD,
                 { realtorName: realtor.name }
             );
             await logService.createLog({ event: constant.LOG_ENUM.REALTOR_RESET_PASSWORD, realtorId: realtor._id });
+
+            res.end();
+        } catch (e) {
+            next(e);
+        }
+    },
+    resetPassword: async (req, res, next) => {
+        try {
+            const { realtorId: { _id }, body: { newPassword } } = req;
+
+            const hashPassword = await passwordHasher.hash(newPassword);
+            await realtorService.resetPass(_id, hashPassword);
+
+            await logService.createLog({ event: constant.LOG_ENUM.REALTOR_RESET_PASSWORD, realtorId: _id });
 
             res.end();
         } catch (e) {

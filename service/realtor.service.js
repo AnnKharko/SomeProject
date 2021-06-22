@@ -28,8 +28,11 @@ module.exports = {
         await O_Auth.create({ reset_password_token, realtor: realtorId });
         return reset_password_token;
     },
-    resetPass: async (realtorId, newPassword, tokenId) => {
+    resetForgotPass: async (realtorId, newPassword, tokenId) => {
         await Realtor.findByIdAndUpdate(realtorId, { password: newPassword });
         await O_Auth.findByIdAndDelete(tokenId);
+    },
+    resetPass: async (realtorId, newPassword) => {
+        await Realtor.findByIdAndUpdate(realtorId, { password: newPassword });
     }
 };

@@ -1,5 +1,6 @@
 const { ErrorHandler, errorCodesEnum, errorCustomCodes } = require('../error');
 const { someFieldValidator } = require('../validator');
+const { passwordHasher } = require('../helper');
 
 module.exports = {
     passwordValidate: async (req, res, next) => {
@@ -34,6 +35,24 @@ module.exports = {
 
             if (error) {
                 // throw new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.BAD_REQUEST, error.details[0].message);
+                return next(new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.BAD_REQUEST, error.details[0].message));
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+    resetPasswordValidate: async (req, res, next) => {
+        try {
+            const { password } = req.body;
+            const realtor = req.realtorId;
+
+            await passwordHasher.compare(password, realtor.password);
+
+            const { error } = await someFieldValidator.resetPasswordValidator.validate(req.body);
+
+            if (error) {
                 return next(new ErrorHandler(errorCodesEnum.BAD_REQUEST, errorCustomCodes.BAD_REQUEST, error.details[0].message));
             }
 

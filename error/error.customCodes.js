@@ -48,6 +48,10 @@ module.exports = {
         customCode: 4008,
         message: 'Realtor is already activated'
     },
+    NOT_VALID_PASSWORD: {
+        customCode: 4009,
+        message: 'Wrong password'
+    },
     // UNAUTHORIZED
     NOT_VALID_TOKEN: {
         customCode: 4010,

@@ -20,11 +20,18 @@ router.post('/password/forgot',
     validatorMiddleware.emailValidate,
     realtorMiddleware.checkIsRealtorExists,
     realtorController.forgotPassword);
-router.post('/password/reset',
+// router.post('/password/reset',
+//     authMiddleware.checkResetPasswordToken,
+//     validatorMiddleware.passwordValidate,
+//     realtorController.resetPassword);
+router.patch('/password/forgot',
     authMiddleware.checkResetPasswordToken,
     validatorMiddleware.passwordValidate,
+    realtorController.resetForgotPassword);
+router.post('/password/reset',
+    authMiddleware.checkAccessToken,
+    validatorMiddleware.resetPasswordValidate,
     realtorController.resetPassword);
-
 // router.use('/:id', realtorMiddleware.checkIsIdValid); // сприймає усі інші endpoint як id !!!
 router.get('/:id', realtorMiddleware.checkIsIdValid, realtorController.getRealtor);
 router.delete('/:id', authMiddleware.checkAccessToken, realtorController.deleteRealtor);
