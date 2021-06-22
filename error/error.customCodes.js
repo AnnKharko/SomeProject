@@ -21,43 +21,49 @@ module.exports = {
         customCode: 4001,
         message: 'Wrong email or password'
     },
-    NOT_VALID_TOKEN: {
-        customCode: 4002
-    },
-    NOT_VALID_REFRESH_TOKEN: {
-        customCode: 4003
-    },
     TOKEN_IS_REQUIRED: {
-        customCode: 4004
+        customCode: 4002,
+        message: 'Token is required'
     },
     REFRESH_TOKEN_IS_REQUIRED: {
-        customCode: 4005
-    },
-    WRONG_MAIL_ACTION: { // ? 500
-        customCode: 4006
-    },
-    NOT_VALID_ACTIVATE_TOKEN: {
-        customCode: 4007
+        customCode: 4003,
+        message: 'Refresh token is required'
     },
     ACTIVATE_TOKEN_IS_REQUIRED: {
-        customCode: 4008
+        customCode: 4004,
+        message: 'Activate token is required'
     },
     RESET_PASSWORD_TOKEN_IS_REQUIRED: {
-        customCode: 4009
-    },
-    NOT_VALID_RESET_PASSWORD_TOKEN: {
-        customCode: 40010
+        customCode: 4005,
+        message: 'Reset_password token is required'
     },
     NOT_VALID_FILE: {
-        customCode: 40011
+        customCode: 4006
     },
     USER_ALREADY_REGISTERED: {
-        customCode: 40012,
+        customCode: 4007,
         message: 'User is already registered'
     },
     REALTOR_ALREADY_ACTIVATED: {
-        customCode: 40013,
+        customCode: 4008,
         message: 'Realtor is already activated'
+    },
+    // UNAUTHORIZED
+    NOT_VALID_TOKEN: {
+        customCode: 4010,
+        message: 'Not valid token'
+    },
+    NOT_VALID_REFRESH_TOKEN: {
+        customCode: 4011,
+        message: 'Not valid refresh token'
+    },
+    NOT_VALID_ACTIVATE_TOKEN: {
+        customCode: 4012,
+        message: 'Not valid activate token'
+    },
+    NOT_VALID_RESET_PASSWORD_TOKEN: {
+        customCode: 4013,
+        message: 'Not valid reset_password  token'
     },
     // PAYLOAD_TOO_LARGE
     FILE_TOO_LARGE: {
@@ -92,6 +98,11 @@ module.exports = {
     },
     // SERVER_ERROR
     WRONG_ACTION: {
-        customCode: 5000
+        customCode: 5000,
+        message: 'Wrong action'
+    },
+    WRONG_MAIL_ACTION: {
+        customCode: 5001,
+        message: 'Wrong email action'
     },
 };

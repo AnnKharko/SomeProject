@@ -7,7 +7,6 @@ const { Schema, model } = require('mongoose');
 // });
 
 const homeSchema = new Schema({
-    // home: { type: String, required: true },
     house: { type: Boolean, default: false },
     apartment: { type: Boolean },
     price: { type: Number, required: true },
@@ -29,7 +28,8 @@ const homeSchema = new Schema({
     photos: [{ type: String }],
     docs: [{ type: String }],
     videos: [{ type: String }],
-    createdAt: { type: Date, default: Date.now() },
+    description: { type: String, required: true },
+    tags: [{ type: String }],
     realtor: { type: Schema.Types.ObjectId, ref: 'Realtor' },
 }, { timestamps: true });
 

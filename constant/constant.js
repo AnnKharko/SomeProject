@@ -6,8 +6,7 @@ module.exports = {
     HOME_IS_DELETED: 'HOME IS DELETED',
     CAR_IS_CREATED: 'CAR IS CREATED',
     USER_IS_DELETED: 'USER IS DELETED',
-    USER_IS_ACTIVATED: 'USER IS ACTIVATED',
-    CAR_IS_DELETED: 'CAR IS DELETED',
+    USER_IS_ACTIVATED: 'REALTOR IS ACTIVATED',
     UNKNOWN_FILE: 'UNKNOWN FILE',
     NO_REPLY: 'no-reply@codemoto.io',
     CHECK_EMAIL: 'Check your inbox to activate your account.',
@@ -24,7 +23,7 @@ module.exports = {
         'image/webp'
     ],
     DOCS_MIMETYPES: [
-        'application/msword', // .doc/.dot
+        'application/msword', // .docs/.dot
         'application/pdf', // .pdf
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document' // .docx  2007
@@ -51,5 +50,5 @@ module.exports = {
         REALTOR_REGISTERED: 'realtor_registered',
         REALTOR_FORGOT_PASSWORD: 'realtor_forgot_password',
         REALTOR_RESET_PASSWORD: 'realtor_reset_password',
-    },
+    }
 };
