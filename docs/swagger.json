@@ -19,6 +19,10 @@
             "schema": {
               "type": "object",
               "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "60bcde5be151d0debbdfcdef"
+                },
                 "name": {
                   "type": "string",
                   "example": "Anna"
@@ -205,7 +209,7 @@
           },
           {
             "name": "id",
-            "in": "query",
+            "in": "params",
             "required": true,
             "type": "string",
             "example": "60c8dd888ebfc910896528eb"
@@ -251,7 +255,15 @@
         ],
         "description": "Activate realtor",
         "operationId": "activateRealtor",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "activate_token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM3NzYxNDYsImV4cCI6MTYyMzc3Njc0Nn0.BxrhEqOQ7JwlPQ5K5bsi_2Iai8aX4yigzHtU66sdbNE"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Activate realtor success",
@@ -285,12 +297,612 @@
         }
       }
     },
+    "/realtors/password/forgot": {
+      "post": {
+        "tags": [
+          "Realtors"
+        ],
+        "description": "Forgot password",
+        "operationId": "forgotPassword",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "example": "someEmail.example1@gmail.com"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "sent a letter with reset_password_token"
+          },
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Realtors"
+        ],
+        "description": "Reset forgot password",
+        "operationId": "resetForgotPassword",
+        "parameters": [
+          {
+            "name": "reset_password_token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM3NzYxNDYsImV4cCI6MTYyMzc3Njc0Nn0.BxrhEqOQ7JwlPQ5K5bsi_2Iai8aX4yigzHtU66sdbNE"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "example": "bdflSKJBFD447dG"
+          },
+          {
+            "name": "repeat_password",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "example": "bdflSKJBFD447dG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "password successfully reset "
+
+          },
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/realtors/password/reset": {
+      "post": {
+        "tags": [
+          "Realtors"
+        ],
+        "description": "Reset password",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM3NzYxNDYsImV4cCI6MTYyMzc3Njc0Nn0.BxrhEqOQ7JwlPQ5K5bsi_2Iai8aX4yigzHtU66sdbNE"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "example": "bdflSKJBFD447dG"
+          },
+          {
+            "name": "newPassword",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "example": "bFLJHHkhg47dG3943T"
+          }
+        ],
+        "responses": {
+          "200": {},
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
     "/homes": {
+      "get": {
+        "tags": [
+          "Homes"
+        ],
+        "description": "Get all homes",
+        "operationId": "getAllHomes",
+        "responses": {
+          "200": {
+            "description": "All realtors success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "60bcde5be151d0debbdfcdef"
+                },
+                "house": {
+                  "type": "boolean",
+                  "example": "false"
+                },
+                "apartment": {
+                  "type": "boolean",
+                  "example": "false"
+                },
+                "price": {
+                  "type": "number",
+                  "example": "70000"
+                },
+                "pricePerM2": {
+                  "type": "number",
+                  "example": "20000"
+                },
+                "district": {
+                  "type": "string",
+                  "example": "Lychakivskyi"
+                },
+                "street": {
+                  "type": "string",
+                  "example": "Зелена"
+                },
+                "buildingType": {
+                  "type": "string",
+                  "example": "someEmail.2021@gmail.com"
+                },
+                "WallMaterial": {
+                  "type": "string",
+                  "example": "someEmail.2021@gmail.com"
+                },
+                "floor": {
+                  "type": "number",
+                  "example": "3"
+                },
+                "numberOfRooms": {
+                  "type": "number",
+                  "example": "3"
+                },
+                "totalArea": {
+                  "type": "number",
+                  "example": "120"
+                },
+                "livingSpace": {
+                  "type": "number",
+                  "example": "100"
+                },
+                "kitchenArea": {
+                  "type": "number",
+                  "example": "20"
+                },
+                "photo": {
+                  "type": "array",
+                  "example": [
+                    "realtor/60b239c7e24485a39b7d3e39/photo/28bd9450-c07d-11eb-84c0-af9769d570fb.jpg"
+                  ]
+                },
+                "doc": {
+                  "type": "array",
+                  "example": [
+                    "realtor/60b239c7e24485a39b7d3e39/doc/28c02c60-c07d-11eb-84c0-af9769d570fb.doc",
+                    "realtor/60b239c7e24485a39b7d3e39/doc/28c20120-c07d-11eb-84c0-af9769d570fb.pdf"
+                  ]
+                },
+                "video": {
+                  "type": "array",
+                  "example": []
+                },
+                "tags": {
+                  "type": "array",
+                  "example": []
+                },
+                "createdAt": {
+                  "type": "date",
+                  "example": "3"
+                },
+                "updatedAt": {
+                  "type": "date",
+                  "example": "3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Homes"
+        ],
+        "description": "Create home",
+        "operationId": "createHome",
+        "parameters":[
+          {
+            "name": "house",
+            "in": "formData",
+            "required": true,
+            "type": "boolean",
+            "example": "true"
+          },
+          {
+            "name": "apartment",
+            "in": "formData",
+            "required": true,
+            "type": "boolean",
+            "example": "false"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 200000
+          },
+          {
+            "name": "pricePerM2",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 30000
+          },
+          {
+            "name": "district",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "example": "Lychakiv"
 
+          },
+          {
+            "name": "street",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "example": "Zelena"
+
+          },
+          {
+            "name": "buildingType",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "example": "polskiy liyks"
+
+          },
+          {
+            "name": "WallMaterial",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "example": "cehla"
+
+          },
+          {
+            "name": "numberOfFloors",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 3
+          },
+          {
+            "name": "numberOfRooms",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 5
+          }, {
+            "name": "landArea",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 250
+          },
+          {
+            "name": "totalArea",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 280
+          },
+          {
+            "name": "livingSpace",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 250
+          },
+          {
+            "name": "kitchenArea",
+            "in": "formData",
+            "required": true,
+            "type": "number",
+            "example": 30
+          },
+          {
+            "name": "photo",
+            "in": "formData",
+            "required": false,
+            "type": "file",
+            "example": "lake-5657887_1280.jpg"
+          },
+          {
+            "name": "doc",
+            "in": "formData",
+            "required": false,
+            "type": "file",
+            "example": "Katelyn johnson.pdf"
+          },
+          {
+            "name": "video",
+            "in": "formData",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create home success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": "201"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "HOME IS CREATED"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Homes"
+        ],
+        "description": "Delete home",
+        "operationId": "deleteHome",
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM3NzYxNDYsImV4cCI6MTYyMzc3Njc0Nn0.BxrhEqOQ7JwlPQ5K5bsi_2Iai8aX4yigzHtU66sdbNE"
+          },
+          {
+            "name": "id",
+            "in": "params",
+            "required": true,
+            "type": "string",
+            "example": "60c8dd888ebfc910896528eb"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete home success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": "201"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "HOME IS DELETED"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/auth": {
-
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Create authorization tokens",
+        "operationId": "createAuthTokens",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "example": "someEmail.example1@gmail.com"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "example": "bdflSKJBFD447dG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Auth tokens is created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "type": "sting",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjQzNTU5MTgsImV4cCI6MTYyNDM1NjUxOH0.7R52L13Hc9yimmS1miDspqG7b4kDvMXLLESyskC2oFA"
+                },
+                "refresh_token": {
+                  "type": "sting",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjQzNTU5MTgsImV4cCI6MTYyNjk0NzkxOH0.mro02twpZUH_vYFLchtI8SQ_U6AmP4Iyoku2gxIT2ew"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "description": "Create new authorization tokens",
+          "operationId": "createNewAuthTokens",
+          "parameters":[
+            {
+              "name": "refresh_token",
+               "in": "header",
+              "required": true,
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM3NzYxNDYsImV4cCI6MTYyMzc3Njc0Nn0.BxrhEqOQ7JwlPQ5K5bsi_2Iai8aX4yigzHtU66sdbNE"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Auth tokens is created",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_token": {
+                    "type": "sting",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjQzNTU5MTgsImV4cCI6MTYyNDM1NjUxOH0.7R52L13Hc9yimmS1miDspqG7b4kDvMXLLESyskC2oFA"
+                  },
+                  "refresh_token": {
+                    "type": "sting",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjQzNTU5MTgsImV4cCI6MTYyNjk0NzkxOH0.mro02twpZUH_vYFLchtI8SQ_U6AmP4Iyoku2gxIT2ew"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Something went wrong",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customCode": {
+                    "description": "BE custom code",
+                    "type": "number",
+                    "example": 4001
+                  }
+                }
+              }
+            }
+          }
+        }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Logout",
+        "operationId": "logout",
+        "parameters":[
+          {
+            "name": "access_token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM3NzYxNDYsImV4cCI6MTYyMzc3Njc0Nn0.BxrhEqOQ7JwlPQ5K5bsi_2Iai8aX4yigzHtU66sdbNE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Realtor successfully logout"
+          },
+          "400": {
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customCode": {
+                  "description": "BE custom code",
+                  "type": "number",
+                  "example": 4001
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
