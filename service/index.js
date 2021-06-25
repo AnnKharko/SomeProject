@@ -4,5 +4,6 @@ module.exports = {
     logService: require('./log.service'),
     mailService: require('./mail.service'),
     realtorService: require('./realtor.service'),
-    uploadService: require('./upload.service')
+    uploadService: require('./upload.service'),
+    userService: require('./user.service')
 };

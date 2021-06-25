@@ -21,13 +21,13 @@ module.exports = {
     checkIsIdValid: async (req, res, next) => {
         try {
             const { id } = req.params;
-            const user = await Realtor.findById({ _id: id });
+            const realtor = await Realtor.findById({ _id: id });
 
-            if (!user) {
+            if (!realtor) {
                 throw new ErrorHandler(errorCodesEnum.NOT_FOUND, errorCustomCodes.NOT_EXIST_USER_WITH_SUCH_ID);
             }
 
-            req.userInfo = user;
+            req.realtorInfo = realtor;
             next();
         } catch (e) {
             next(e);
