@@ -1,5 +1,5 @@
 module.exports = {
-    MONGO_URL: process.env.MONGO_URL || '',
+    MONGO_URL: process.env.MONGO_URL || 'mongodb://localhost:27017/realEstateDB',
     JWT_SECRET: process.env.JWT_SECRET || 'SECRET',
     JWT_SECRET_LIFETIME: process.env.JWT_SECRET_LIFETIME || '10m',
     JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || 'REFRESH_SECRET',
