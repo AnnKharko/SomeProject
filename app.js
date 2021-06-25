@@ -19,6 +19,8 @@ const swaggerDoc = require('./docs/swagger.json');
 dotenv.config();
 // dotenv.config({ path: path.join(process.cwd(), '.env') });
 
+const cronRun = require('./cron-job');
+
 const serverRequestRateLimit = rateLimit({
     windowMs: serverRateLimits.period,
     max: serverRateLimits.maxRequests
@@ -59,6 +61,7 @@ app.use('*', (err, req, res, next) => {
 
 app.listen(PORT, () => {
     console.log(`App listen ${PORT}`);
+    cronRun();
 });
 
 function _connectDB() {
