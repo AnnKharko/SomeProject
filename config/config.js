@@ -15,7 +15,7 @@ module.exports = {
     ROOT_EMAIL_SERVICE: process.env.ROOT_EMAIL_SERVICE || 'gmail',
     FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5000',
     ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN || 'http://localhost:4200;http://localhost:3000',
-    SENTRY_DSN: process.env.SENTRY_DSN || '',
+    SENTRY_DSN: process.env.SENTRY_DSN || 'some dsn',
 
     serverRateLimits: {
         period: 15 * 60 * 1000, // 15 minutes
