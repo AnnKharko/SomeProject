@@ -13,6 +13,10 @@ module.exports = {
         customCode: 4043,
         message: 'Root email credentials are not defined!'
     },
+    HOME_NOT_FOUND: {
+        customCode: 4040,
+        message: 'Home with such id not exist'
+    },
     // BAD REQUEST
     BAD_REQUEST: {
         customCode: 4000

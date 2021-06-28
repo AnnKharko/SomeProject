@@ -16,8 +16,8 @@ router.post('/',
     homeMiddleware.checkIsHomeValid,
     homeController.createHome);
 
-// router.use('/:id', middleware.checkIsPresent);
+router.use('/:id', homeMiddleware.checkIsIdValid);
 router.get('/:id', homeController.getHome);
-router.delete('/:id', homeController.deleteHome);
+router.delete('/:id', authMiddleware.checkAccessToken, homeController.deleteHome);
 
 module.exports = router;
