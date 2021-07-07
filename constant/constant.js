@@ -10,6 +10,7 @@ module.exports = {
     UNKNOWN_FILE: 'UNKNOWN FILE',
     NO_REPLY: 'no-reply@codemoto.io',
     CHECK_EMAIL: 'Check your inbox to activate your account.',
+    USER_IS_UPDATED: 'USER IS UPDATED',
 
     PHOTO_MAX_SIZE: 2 * 1024 * 1024, // 2MB
     FILE_MAX_SIZE: 5 * 1024 * 1024, // 5MB
